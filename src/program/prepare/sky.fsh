@@ -29,9 +29,6 @@ uniform float4x4 gbufferProjectionInverse;
 uniform float2 windowToNdc;
 uniform float blindness;
 
-flat in float isstars;
-in float starAlpha;
-
 void main() {
 	// Project back to view space from the fragment coordinates. For this case,
 	// it is easier to start off with a position on the far plane and then
@@ -56,15 +53,7 @@ void main() {
 		ditherCoord += 500.0 * cos(frameTimeCounter);
 	#endif
 
-	float3 sky;
-	float alpha = 1.0;
-
-	if (isstars > 0.5) {
-		sky = float3(1.0);
-		alpha = starAlpha;
-	} else {
-		sky = SkyDither(ditherCoord, SkyColor(worldSpaceVector));
-	}
+	float3 sky = SkyDither(ditherCoord, SkyColor(worldSpaceVector));
 
 	// If clouds are enabled, blend them into the sky gradient.
 	#if defined(CLOUDS_ENABLED)
@@ -83,5 +72,5 @@ void main() {
 /* DRAWBUFFERS:0 */
 
 	// Fade away the sky during blindness
-	gl_FragData[0] = float4(sky * max(0.0, 1.0 - 10.0 * blindness), alpha);
+	gl_FragData[0] = float4(sky * max(0.0, 1.0 - 10.0 * blindness), 1.0);
 }

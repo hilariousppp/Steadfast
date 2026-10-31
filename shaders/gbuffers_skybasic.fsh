@@ -17,4 +17,4 @@
 #version 150 compatibility
 
 #include "legacy/unslang.glsl"
-#include "program/world/sky.fsh"
+#include "program/world/stars.fsh"
