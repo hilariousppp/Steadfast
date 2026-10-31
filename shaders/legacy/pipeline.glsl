@@ -131,9 +131,9 @@ const float4 colortex0ClearColor = float4(0.0, 0.0, 0.0, 0.0);
 // performance difference but it is unusual compared to all other textures
 const float4 colortex1ClearColor = float4(0.0, 0.0, 0.0, 0.0);
 
-// Similarly, the shadowcolor textures get cleared to (1.0, 1.0, 1.0, 1.0)
-// instead of zero
-const float4 shadowcolor0ClearColor = float4(0.0, 0.0, 0.0, 0.0);
+// With our current water height encoding, the shadow color texture does need
+// to be cleared to 1, which is the default, but I want to be explicit.
+const float4 shadowcolor0ClearColor = float4(1.0, 1.0, 1.0, 1.0);
 
 // Encoded water height
 //
