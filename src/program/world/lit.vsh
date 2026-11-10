@@ -306,6 +306,10 @@ void main() {
 	#endif
 
 	float3 worldNormal = FetchWorldNormal();
+	//Fixes an issue with water geometry having its normals inverted sometimes,
+	//like when viewed at grazing angles or in some random chunks - hilariousppp
+	worldNormal = dot(cameraRelativePos.xyz, worldNormal) <= 0.0 ?
+	                  worldNormal: -worldNormal;
 	float3 worldTangent = FetchWorldTangent();
 	bool handedness = FetchTangentHandedness();
 	uint materialID = FetchMaterialID(worldNormal, currentRenderedItemId);
